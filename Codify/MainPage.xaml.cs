@@ -31,6 +31,8 @@ namespace Codify
             int randNum = rnd.Next(0, 100000);
             for (int i = 0; i < str.Length; i++) {
                 char c = chars[i];
+
+                // takes care of special case of slightly different apostrophe
                 if ((int)c == 8217) {
                     c = (char)39;
                 }
