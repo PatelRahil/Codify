@@ -18,8 +18,9 @@ namespace Codify
 
         void Handle_Clicked(object sender, System.EventArgs e) {
             text = MessageBox.Text;
-            string eStr = (String)encode(text)[0];
-            int seed = (int)encode(text)[1];
+            object[] info = encode(text);
+            string eStr = (string)info[0];
+            int seed = (int)info[1];
             ((Button)sender).Text = eStr + " " + seed;
             MessageBox.Text = "Original Text: " + decode(eStr, seed);
         }
@@ -28,11 +29,13 @@ namespace Codify
             char[] chars = str.ToCharArray();
             Random rnd = new Random();
             int randNum = rnd.Next(0, 100000);
-
             for (int i = 0; i < str.Length; i++) {
                 char c = chars[i];
+                if ((int)c == 8217) {
+                    c = (char)39;
+                }
                 if (c > 31 && c < 127) {
-                    int newASCII = ((c - 32 + randNum) % (126 - 32)) + 32;
+                    int newASCII = ((c - 32 + randNum) % (126 - 32 + 1)) + 32;
                     chars[i] = (char)newASCII;
                 }
             }
@@ -48,12 +51,19 @@ namespace Codify
             for (int i = 0; i < str.Length; i++)
             {
                 char c = chars[i];
-                if (c > 31 && c < 127)
-                {
-                    int newASCII = ((c - 32 - seed) % (126 - 32)) + 32;
-                    chars[i] = (char)newASCII;
-                    Console.WriteLine(newASCII + " and " + (char)newASCII);
+                int newASCII = c - seed + (seed/94) * (126 - 32 + 1);
+                int count = 0;
+                while (newASCII < 32) {
+                    newASCII += (126 - 32 + 1);
+                    count++;
                 }
+                count = 0;
+                while (newASCII > 126) {
+                    newASCII -= (126 - 32 + 1);
+                    count++;
+                }
+
+                chars[i] = (char)newASCII;
             }
             string decodedStr = new string(chars);
             return decodedStr;
