@@ -16,13 +16,17 @@ namespace Codify
             InitializeComponent();
         }
 
-        void Handle_Clicked(object sender, System.EventArgs e) {
+        void Codify_Clicked(object sender, System.EventArgs e) {
             text = MessageBox.Text;
             object[] info = encode(text);
             string eStr = (string)info[0];
             int seed = (int)info[1];
             ((Button)sender).Text = eStr + " " + seed;
             MessageBox.Text = "Original Text: " + decode(eStr, seed);
+        }
+
+        void Translate_Clicked(object sender, System.EventArgs e) {
+            text = KeyBox.Text;
         }
 
         object[] encode(string str) {

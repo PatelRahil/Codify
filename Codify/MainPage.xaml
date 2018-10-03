@@ -2,8 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Codify" x:Class="Codify.MainPage">
     <StackLayout>
         <!-- Place new controls here -->
-        <!-- <Label Text="Welcome to Xamarin.Forms!" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" /> -->
-        <Editor Placeholder="Message" VerticalOptions="CenterAndExpand" x:Name="MessageBox"/>
-        <Button Text="Click Me" Clicked="Handle_Clicked" />
+        <Label Text="What is your secret message?" FontSize="Medium" Margin= "120,40,20,0" VerticalOptions="Start" HorizontalTextAlignment="Center" />
+        <Editor Placeholder="Message" HeightRequest="100" Margin="40,0,20,0" x:Name="MessageBox"/>
+        <Label Text="Key (leave empty if you want to codify):" HorizontalTextAlignment="Center" />
+        <Entry Placeholder="Key" x:Name="KeyBox"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Text="Codify" TextColor="White" BackgroundColor="Teal" Clicked="Codify_Clicked" Grid.Column="0"/>
+            <Button Text="Translate" TextColor="White" BackgroundColor="Teal" Clicked="Translate_Clicked" Grid.Column="0"/>
+        </Grid>
     </StackLayout>
 </ContentPage>
